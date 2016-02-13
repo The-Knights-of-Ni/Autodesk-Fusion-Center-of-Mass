@@ -101,7 +101,7 @@ struct ComExecutePreviewEventHandler : public CommandEventHandler
             #if 1
             Ptr<MeshManager> mesh_manager = body->meshManager();
             Ptr<TriangleMeshCalculator> triangle_mesh_calculator = mesh_manager->createMeshCalculator();
-            triangle_mesh_calculator->setQuality(NormalQualityTriangleMesh);
+            triangle_mesh_calculator->setQuality(LowQualityTriangleMesh);
             Ptr<TriangleMesh> triangle_mesh = triangle_mesh_calculator->calculate();
             
             std::vector<float> vertex_buffer = triangle_mesh->nodeCoordinatesAsFloat();
@@ -202,6 +202,7 @@ struct ComExecutePreviewEventHandler : public CommandEventHandler
         
 	sketch = sketches->add(root_component->xYConstructionPlane());
 	if (!sketch) return;
+        sketch->name("center of mass");
         
         Ptr<SketchPoints> sketch_points = sketch->sketchPoints();
         if(!sketch_points) return;
@@ -224,7 +225,6 @@ struct ComCommandCreatedEventHandler : public CommandCreatedEventHandler
         
         Ptr<Command> command = eventArgs->command();
         if(!command) return;
-        //command->isOKButtonVisible(false);
         
         Ptr<CommandEvent> on_destroy = command->destroy();
         error = on_destroy->add(&on_destroy_handler);
@@ -286,16 +286,6 @@ extern "C" XI_EXPORT bool run(const char* context)
     if(!inspect_panel) return false;
     Ptr<ToolbarControls> inspect_panel_controls = inspect_panel->controls();
     com_control = inspect_panel_controls->addCommand(com_command);
-    
-    // char temp[5000];
-    // temp[0] = 0;
-    // for(int i = 0; i < tpl->count(); i++)
-    // {
-    //     Ptr<ToolbarPanel> tp = tpl->item(i);
-    //     strcat(temp, tp->id().c_str());
-    //     strcat(temp, "\n");
-    // }
-    // ui->messageBox(temp);
     
     return true;
 }
