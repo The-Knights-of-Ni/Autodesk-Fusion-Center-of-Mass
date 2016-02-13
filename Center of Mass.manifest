@@ -1,0 +1,1 @@
+{"autodeskProduct":"Fusion360","type":"addin","author":"Kyler Natividad","description":{"":"Finds the center of mass"},"supportedOS":"windows|mac","editEnabled":true,"id":"b79641d6-d197-4b11-823d-60ef40e98a83","version":"1.0","runOnStartup":true,"sourcewindows":"Center of Mass.vcxproj","sourcemac":"Center of Mass.xcodeproj"}
