@@ -77,13 +77,14 @@ struct ComExecutePreviewEventHandler : public CommandEventHandler
         if(!inputs) return;
         
         Ptr<SelectionCommandInput> selection_input = inputs->itemById("selection");
-        
-        // Ptr<TextBoxCommandInput> center_of_mass_textbox = inputs->itemById("center_of_mass_textbox");
-        // if(!center_of_mass_textbox)
-        // {
-        //     center_of_mass_textbox = inputs->addTextBoxCommandInput("center_of_mass_textbox",
-        //                                                            "Center of Mass", "", 1, true);
-        // }
+
+        //TODO: cm_text when needed
+        Ptr<TextBoxCommandInput> center_of_mass_textbox = inputs->itemById("center_of_mass_textbox");
+        if(!center_of_mass_textbox)
+        {
+            center_of_mass_textbox = inputs->addTextBoxCommandInput("center_of_mass_textbox",
+                                                                   "Center of Mass", "", 1, true);
+        }
         
         char * cm_text_current = cm_text;
         
@@ -191,12 +192,12 @@ struct ComExecutePreviewEventHandler : public CommandEventHandler
         if(total_mass == 0.0) return;
         center_of_mass /= total_mass;
         
-        // int n_printed = sprintf(cm_text_current, "total: <%f, %f, %f> cm, %f g\n",
-        //                         center_of_mass.x, center_of_mass.y, center_of_mass.z,
-        //                         total_mass/1000);
-        // if(n_printed >= 0) cm_text_current += n_printed;
+        int n_printed = sprintf(cm_text_current, "total: <%f, %f, %f> cm, %f g\n",
+                                center_of_mass.x, center_of_mass.y, center_of_mass.z,
+                                total_mass*1000);
+        if(n_printed >= 0) cm_text_current += n_printed;
         
-        // center_of_mass_textbox->formattedText(cm_text);
+        center_of_mass_textbox->formattedText(cm_text);
         
         if (sketch) sketch->deleteMe();
         
